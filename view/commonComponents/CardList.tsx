@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getRandomAvatar } from './../../../utils/common'; // 引入集中管理的图片对象
+import { getRandomAvatar,getRandomCover } from './../../utils/common'; // 引入集中管理的图片对象
 
 //https://api.bilibili.com/x/web-interface/dynamic/region?rid=31&ps=20&pn=1
 
@@ -15,7 +15,8 @@ interface ApiResponse {
             },
             stat:{
                 view:number
-            }
+            },
+            pic:string
         }];
     } | null;
 }
@@ -71,7 +72,7 @@ const App: React.FC = () => {
         <View style={styles.card}>
             {/* 视频缩略图 */}
             <View style={styles.imageContainer}>
-                <Image source={{ uri: item.pic }} style={styles.cardImage} />
+                <Image source={item.pic?{ uri: item.pic }:getRandomCover()} style={styles.cardImage} />
                 <View style={styles.viewsContainer}>
                     <Ionicons name={'eye-outline'} size={12} color={'#fff'}/>
                     <Text style={styles.viewsText}>{item.stat.view}</Text>

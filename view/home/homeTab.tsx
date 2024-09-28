@@ -1,28 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import {appMainColor}from './../../utils/common'
+import { FlatList } from 'react-native';
 import LiveBroadcast from './liveBroadcast/LiveBroadcast'
-import Recommend from './recommend/Recommend'
-
-const Hot = () => (
-    <View style={styles.scene}><Text>Hot Content</Text></View>
-);
-const Follow = () => (
-    <View style={styles.scene}><Text>Follow Content</Text></View>
-);
-const Movies = () => (
-    <View style={styles.scene}><Text>Movies Content</Text></View>
-);
+import {appMainColor} from './../../utils/common'
+import CardList from './../commonComponents/CardList';
 
 // 标签内容的映射
 const initialLayout = { width: '100%' };
 const renderScene = SceneMap({
     live: LiveBroadcast,
-    recommend: Recommend,
-    hot: Hot,
-    follow: Follow,
-    movies: Movies,
+    recommend: CardList,
+    hot: CardList,
+    follow: CardList,
+    movies: CardList,
 });
 
 const App = () => {
@@ -61,22 +52,22 @@ const App = () => {
 const styles = StyleSheet.create({
     tabBar: {
         backgroundColor: '#fff', // TabBar 背景颜色
+        height:30
     },
     label: {
         color: '#666', // 未选中时的文字颜色
+        fontSize:12,
+        marginTop:-18
     },
     activeLabel: {
         color: appMainColor, // 选中时的文字颜色
     },
     indicator: {
         backgroundColor: appMainColor, // 下划线颜色
-        height: 3, // 下划线高度
-    },
-    scene: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+        height: 2, // 下划线高度
+        width:18,
+        marginLeft:28
+    }
 });
 
 export default App;

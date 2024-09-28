@@ -8,4 +8,5 @@
 支持 react-native 0.75.3<br>
 欢迎star和fork，会经常更新。<br>
 
-<img src="assets/img/Screenshot_1727528551.png" width="300">
+<img src="assets/img/Screenshot_1727535691.png" width="300"><br>
+<img src="assets/img/Screenshot_1727535659.png" width="300">

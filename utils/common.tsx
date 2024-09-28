@@ -24,7 +24,6 @@ export const getRandomAvatar = () => {
 };
 
 export const getRandomCover = () => {
-    // 随机生成一个 1 到 5 之间的数字
     const randomIndex = Math.floor(Math.random() * 6) + 1;
     return covers[randomIndex];
 };
