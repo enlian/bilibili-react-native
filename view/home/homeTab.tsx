@@ -1,41 +1,42 @@
-import React from 'react'
-import {View, StyleSheet, ListRenderItem, Text} from 'react-native'
-import { Tabs } from 'react-native-collapsible-tab-view'
+import * as React from 'react';
+import { View, useWindowDimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import LiveBroadcast from './liveBroadcast/LiveBroadcast'
+import Recommend from './recommend/Recommend'
+const FirstRoute = () => (
+    <LiveBroadcast/>
+);
 
-const HEADER_HEIGHT = 50
+const SecondRoute = () => (
+    <Recommend/>
+);
 
-const Header = () => {
-    return <View style={styles.header} />
-}
+const ThirdRoute = () => (
+    <View style={{ flex: 1, backgroundColor: '#7bb843' }} />
+);
 
-const HomeTab: React.FC = () => {
+const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+});
+
+export default function TabViewExample() {
+    const layout = useWindowDimensions();
+
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        { key: 'first', title: '直播' },
+        { key: 'second', title: '推荐' },
+        { key: 'third', title: '热门' },
+    ]);
+
     return (
-        <Tabs.Container
-            renderHeader={Header}
-            headerHeight={HEADER_HEIGHT} // optional
-        >
-            <Tabs.Tab name="直播">
-                <Tabs.ScrollView>
-                    <LiveBroadcast/>
-                </Tabs.ScrollView>
-            </Tabs.Tab>
-            <Tabs.Tab name="推荐">
-                <Text></Text>
-            </Tabs.Tab>
-            <Tabs.Tab name="热门">
-                <Text></Text>
-            </Tabs.Tab>
-        </Tabs.Container>
-    )
+        <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+        />
+    );
 }
-
-const styles = StyleSheet.create({
-    header: {
-        height: HEADER_HEIGHT,
-        width: '100%',
-        backgroundColor: '#2196f3',
-    },
-})
-
-export default HomeTab
