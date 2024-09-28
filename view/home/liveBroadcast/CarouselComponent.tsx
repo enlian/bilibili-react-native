@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         marginTop:5,
-        marginBottom:10,
+        marginBottom:7,
     },
     slide: {
         width: viewportWidth-10,
@@ -108,15 +108,18 @@ const styles = StyleSheet.create({
     pagination: {
         position: 'absolute',
         bottom: 10,
-        right: 10,
+        right: 20,
         flexDirection: 'row',
+        backgroundColor:'rgba(255,255,255,0.4)',
+        padding:2,
+        borderRadius:4,
     },
     dot: {
         width: 8,
         height: 8,
         borderRadius: 4,
         backgroundColor: '#000',
-        marginHorizontal: 5,
+        marginHorizontal: 4,
     },
 });
 
