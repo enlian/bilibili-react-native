@@ -4,7 +4,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { FlatList } from 'react-native';
 import LiveBroadcast from './liveBroadcast/LiveBroadcast'
 import {appMainColor} from './../../utils/common'
-import CardList from './../commonComponents/CardList';
+import CardList from '../commonComponents/cardList.tsx';
 
 // 标签内容的映射
 const initialLayout = { width: '100%' };

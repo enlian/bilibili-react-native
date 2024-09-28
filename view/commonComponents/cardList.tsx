@@ -1,31 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getRandomAvatar,getRandomCover } from './../../utils/common'; // 引入集中管理的图片对象
-
-//https://api.bilibili.com/x/web-interface/dynamic/region?rid=31&ps=20&pn=1
+import { getRandomAvatar, getRandomCover } from './../../utils/common'; // 引入集中管理的图片对象
 
 interface ApiResponse {
     code: number;
     data: {
-        archives: [{
-            owner:{
-                name:string
-                face:string
-            },
-            stat:{
-                view:number
-            },
-            pic:string
-        }];
+        archives: Array<{
+            owner: {
+                name: string;
+                face: string;
+            };
+            stat: {
+                view: number;
+            };
+            pic: string;
+            title: string; // 添加 title 字段
+        }>;
     } | null;
 }
 
-const App: React.FC = () => {
-    const [data, setData] = useState<archives[]>([]); // 数据类型为 Item 数组
+export const App = () => {
+    const [data, setData] = useState<any[]>([]); // 数据类型为 archives 数组
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1); // 页码，初始为 1
-    const [isRefreshing, setIsRefreshing] = useState(false); // 控制下拉刷新
+    const [refreshing, setRefreshing] = useState(false); // 控制下拉刷新
     const [hasMoreData, setHasMoreData] = useState(true); // 判断是否还有更多数据
 
     const fetchData = async (pageNumber: number) => {
@@ -58,11 +57,11 @@ const App: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        setIsRefreshing(true);
+        setRefreshing(true);
         setPage(1); // 重置为第一页
         setData([]); // 清空现有数据
         fetchData(1).then(() => {
-            setIsRefreshing(false); // 结束刷新状态
+            setRefreshing(false); // 结束刷新状态
             setHasMoreData(true); // 恢复加载更多数据
         });
     };
@@ -72,9 +71,9 @@ const App: React.FC = () => {
         <View style={styles.card}>
             {/* 视频缩略图 */}
             <View style={styles.imageContainer}>
-                <Image source={item.pic?{ uri: item.pic }:getRandomCover()} style={styles.cardImage} />
+                <Image source={item.pic ? { uri: item.pic } : getRandomCover()} style={styles.cardImage} />
                 <View style={styles.viewsContainer}>
-                    <Ionicons name={'eye-outline'} size={12} color={'#fff'}/>
+                    <Ionicons name={'eye-outline'} size={12} color={'#fff'} />
                     <Text style={styles.viewsText}>{item.stat.view}</Text>
                 </View>
                 {/* 用户名在图片右下角 */}
@@ -85,14 +84,14 @@ const App: React.FC = () => {
             {/* 下方信息 */}
             <View style={styles.infoContainer}>
                 <View style={styles.textContainer}>
-                    <Image source={item.owner.face ? {uri: item.owner.face} : getRandomAvatar()} style={styles.userImage} />
+                    <Image source={item.owner.face ? { uri: item.owner.face } : getRandomAvatar()} style={styles.userImage} />
                     <View style={styles.titleContainer}>
                         <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
                         <Text style={styles.username} numberOfLines={1}>{item.owner.name}</Text>
                     </View>
                 </View>
                 {/* 右下角的三个小点 */}
-                <Ionicons style={styles.moreOptions} name={'ellipsis-vertical'} size={12} color={'#464646'}/>
+                <Ionicons style={styles.moreOptions} name={'ellipsis-vertical'} size={12} color={'#464646'} />
             </View>
         </View>
     );
@@ -114,7 +113,7 @@ const App: React.FC = () => {
             onEndReached={loadMoreData} // 到达底部时加载更多数据
             onEndReachedThreshold={0.5} // 距离底部多少时触发
             ListFooterComponent={renderFooter} // 底部加载动画
-            refreshing={isRefreshing}
+            refreshing={refreshing}
             onRefresh={handleRefresh} // 下拉刷新
         />
     );
