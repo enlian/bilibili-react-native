@@ -60,7 +60,7 @@ const App = () => {
             try {
                 const response = await fetch('https://api.bilibili.com/pgc/web/variety/feed?cursor=0&page_size=20');
                 const result: ApiResponse = await response.json();
-                console.log(result)
+                // console.log(result)
 
                 // 安全地访问数据并处理 null 情况
                 const list = result?.data?.list ?? [];

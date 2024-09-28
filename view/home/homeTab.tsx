@@ -1,34 +1,38 @@
-import * as React from 'react';
-import { View, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import {appMainColor}from './../../utils/common'
 import LiveBroadcast from './liveBroadcast/LiveBroadcast'
 import Recommend from './recommend/Recommend'
-const FirstRoute = () => (
-    <LiveBroadcast/>
+
+const Hot = () => (
+    <View style={styles.scene}><Text>Hot Content</Text></View>
+);
+const Follow = () => (
+    <View style={styles.scene}><Text>Follow Content</Text></View>
+);
+const Movies = () => (
+    <View style={styles.scene}><Text>Movies Content</Text></View>
 );
 
-const SecondRoute = () => (
-    <Recommend/>
-);
-
-const ThirdRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#7bb843' }} />
-);
-
+// 标签内容的映射
+const initialLayout = { width: '100%' };
 const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
+    live: LiveBroadcast,
+    recommend: Recommend,
+    hot: Hot,
+    follow: Follow,
+    movies: Movies,
 });
 
-export default function TabViewExample() {
-    const layout = useWindowDimensions();
-
+const App = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: '直播' },
-        { key: 'second', title: '推荐' },
-        { key: 'third', title: '热门' },
+        { key: 'live', title: '直播' },
+        { key: 'recommend', title: '推荐' },
+        { key: 'hot', title: '热门' },
+        { key: 'follow', title: '追番' },
+        { key: 'movies', title: '影视' },
     ]);
 
     return (
@@ -36,7 +40,43 @@ export default function TabViewExample() {
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
+            initialLayout={initialLayout}
+            renderTabBar={(props) => (
+                <TabBar
+                    {...props}
+                    indicatorStyle={styles.indicator} // 设置下划线样式
+                    style={styles.tabBar} // TabBar样式
+                    renderLabel={({ route, focused }) => (
+                        <Text style={[styles.label, focused && styles.activeLabel]}>
+                            {route.title}
+                        </Text>
+                    )}
+                />
+            )}
         />
     );
-}
+};
+
+// 样式
+const styles = StyleSheet.create({
+    tabBar: {
+        backgroundColor: '#fff', // TabBar 背景颜色
+    },
+    label: {
+        color: '#666', // 未选中时的文字颜色
+    },
+    activeLabel: {
+        color: appMainColor, // 选中时的文字颜色
+    },
+    indicator: {
+        backgroundColor: appMainColor, // 下划线颜色
+        height: 3, // 下划线高度
+    },
+    scene: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
+
+export default App;

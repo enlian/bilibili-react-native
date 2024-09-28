@@ -12,10 +12,7 @@ const Header = () => {
 
 const HomeTab: React.FC = () => {
     return (
-        <Tabs.Container
-            // renderHeader={Header}
-            // headerHeight={HEADER_HEIGHT}
-        >
+        <Tabs.Container>
             <Tabs.Tab name="直播">
                 <Tabs.FlatList data={[]} ListHeaderComponent={<LiveBroadcast/>} renderItem={null}/>
             </Tabs.Tab>
@@ -23,6 +20,12 @@ const HomeTab: React.FC = () => {
                 <Tabs.FlatList data={[]} ListHeaderComponent={<Recommend/>} renderItem={null}/>
             </Tabs.Tab>
             <Tabs.Tab name="热门">
+                <Text></Text>
+            </Tabs.Tab>
+            <Tabs.Tab name="追番">
+                <Text></Text>
+            </Tabs.Tab>
+            <Tabs.Tab name="影视">
                 <Text></Text>
             </Tabs.Tab>
         </Tabs.Container>
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
         height: HEADER_HEIGHT,
         width: '100%',
         backgroundColor: '#2196f3',
-    },
+    }
 })
 
 export default HomeTab

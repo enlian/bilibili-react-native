@@ -6,8 +6,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DynamicsScreen from './screens/DynamicsScreen';
 import MyScreen from './screens/MyScreen';
-import HomeTab from './home/homeTab1'
-import appMainColor from './../utils/common'
+import HomeTab from './home/homeTab'
+import {appMainColor} from './../utils/common'
 
 const Tab = createBottomTabNavigator();
 

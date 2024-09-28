@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { getRandomCover } from './../../../utils/common'; // 引入集中管理的图片对象
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -27,7 +28,7 @@ const CarouselComponent: React.FC = () => {
     const renderItem = ({ item }: { item: { image: string } }) => {
         return (
             <View style={styles.slide}>
-                <Image source={{ uri: item.image }} style={styles.image} />
+                <Image source={getRandomCover()} style={styles.image} />
             </View>
         );
     };
@@ -90,9 +91,10 @@ const styles = StyleSheet.create({
         marginBottom:10,
     },
     slide: {
-        width: viewportWidth,
+        width: viewportWidth-10,
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft:5
     },
     image: {
         width: '100%',
