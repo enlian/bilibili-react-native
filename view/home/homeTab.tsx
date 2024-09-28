@@ -32,6 +32,7 @@ const App = () => {
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={initialLayout}
+            swipeEnabled={false} //禁用左右滑动
             renderTabBar={(props) => (
                 <TabBar
                     {...props}

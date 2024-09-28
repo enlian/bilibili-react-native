@@ -54,7 +54,7 @@ const App = () => {
     // FlatList 的头部组件
     const renderHeader = () => (
         <View>
-            <CarouselComponent />
+            <CarouselComponent data={data}/>
             <AvatarList/>
         </View>
     );
