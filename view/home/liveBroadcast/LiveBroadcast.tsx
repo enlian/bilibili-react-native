@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, StyleSheet,ScrollView } from 'react-native';
+import {View, Text, FlatList, Image, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
 import CardList from '../../commonComponents/cardList.tsx';
 import CarouselComponent from './CarouselComponent';
 import AvatarList from './../../commonComponents/avatarList';
@@ -60,7 +60,7 @@ const App = () => {
     );
 
     if (loading) {
-        return <Text>Loading...</Text>;
+        return <ActivityIndicator size="large" color="#0000ff" />;
     } else if (data.length > 0) {
         return (
             <FlatList
