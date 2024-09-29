@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DynamicsScreen from './screens/DynamicsScreen';
-import MyScreen from './screens/MyScreen';
+import My from './my/my';
 import HomeTab from './home/homeTab'
 import {appMainColor} from './../utils/common'
 
@@ -15,6 +15,7 @@ const App = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator
+                initialRouteName="我的"
                 screenOptions={({route}) => ({
                     headerShown: false,
                     tabBarActiveTintColor: appMainColor,
@@ -42,7 +43,7 @@ const App = () => {
             >
                 <Tab.Screen name="首页" component={HomeTab}/>
                 <Tab.Screen name="动态" component={DynamicsScreen}/>
-                <Tab.Screen name="我的" component={MyScreen}/>
+                <Tab.Screen name="我的" component={My}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

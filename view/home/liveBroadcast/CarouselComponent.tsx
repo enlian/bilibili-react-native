@@ -24,7 +24,6 @@ const App: React.FC<AppProps> = ({ data }) => {
                 paginationStyleItem={styles.paginationStyleItem}
                 paginationTapDisabled={false}
                 renderItem={({item}) => {
-                    console.log(item.pic)
                     return (
                         <View style={[styles.child]}>
                             <Image source={{uri:item.pic}} style={styles.child}/>
