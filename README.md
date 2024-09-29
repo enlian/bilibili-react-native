@@ -10,8 +10,8 @@
 
 ### 运行方法
 
-npm i <br>
-npm run ios 或 npm run android <br>
+- npm i <br>
+- npm run ios 或 npm run android <br>
 
 <img src="assets/img/Screenshot_1727577829.png" width="300"><br><br>
 
