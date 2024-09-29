@@ -11,9 +11,9 @@
 - npm i <br>
 - npm run ios 或 npm run android <br>
 
-<img src="assets/img/Screenshot_1727577829.png" width="300"><br><br>
+<img src="assets/img/Screenshot_1727577829.png" width="400"><br><br>
 
-<img src="assets/img/Screenshot_1727535691.png" width="300"><br><br>
+<img src="assets/img/Screenshot_1727535691.png" width="400"><br><br>
 
-<img src="assets/img/Screenshot_1727535659.png" width="300"><br>
+<img src="assets/img/Screenshot_1727535659.png" width="400"><br>
 
