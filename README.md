@@ -19,7 +19,3 @@ npm run ios 或 npm run android <br>
 
 <img src="assets/img/Screenshot_1727535659.png" width="300"><br>
 
-### 运行方法
-
-npm i <br>
-npm run ios 或 npm run android <br>
