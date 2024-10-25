@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, FlatList, Image, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
-import CardList from '../../commonComponents/cardList.tsx';
+import CardList from '../../commonComponents/CardList.tsx';
 import CarouselComponent from './CarouselComponent';
 import AvatarList from './../../commonComponents/avatarList';
 
@@ -25,7 +25,9 @@ interface ApiResponse {
     } | null;
 }
 
-const App = () => {
+const LiveBroadcast = ({ navigation }) => {
+    console.log(navigation);
+    
     const [data, setData] = useState<any[]>([]); // 数据类型为 Item 数组
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false); // 刷新状态
@@ -69,7 +71,7 @@ const App = () => {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={null} // 内容部分的渲染项
                 ListHeaderComponent={renderHeader} // 使用自定义的头部组件
-                ListFooterComponent={refreshing?null:<CardList/>} // 传递事件通知给 CardList
+                ListFooterComponent={refreshing?null:<CardList navigation={navigation}/>} // 传递事件通知给 CardList
                 onRefresh={fetchData} // 下拉刷新时调用 fetchData
                 refreshing={refreshing} // 控制刷新状态
             />
@@ -87,4 +89,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default LiveBroadcast;

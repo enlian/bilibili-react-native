@@ -1,22 +1,30 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { FlatList } from 'react-native';
-import LiveBroadcast from './liveBroadcast/LiveBroadcast'
-import {appMainColor} from './../../utils/common'
-import CardList from '../commonComponents/cardList.tsx';
+import LiveBroadcast from './liveBroadcast/LiveBroadcast';
+import CardList from '../commonComponents/CardList'; // 确保路径正确
+import { appMainColor } from './../../utils/common';
 
 // 标签内容的映射
 const initialLayout = { width: '100%' };
-const renderScene = SceneMap({
-    live: LiveBroadcast,
-    recommend: CardList,
-    hot: CardList,
-    follow: CardList,
-    movies: CardList,
-});
+const renderScene = ({ route, navigation }) => {
+    switch (route.key) {
+        case 'live':
+            return <LiveBroadcast navigation={navigation} />;
+        case 'recommend':
+            return <CardList navigation={navigation} />;  // 显式传递 navigation
+        case 'hot':
+            return <CardList navigation={navigation} />;  // 显式传递 navigation
+        case 'follow':
+            return <CardList navigation={navigation} />;  // 显式传递 navigation
+        case 'movies':
+            return <CardList navigation={navigation} />;  // 显式传递 navigation
+        default:
+            return null;
+    }
+};
 
-const App = () => {
+const App = ({ navigation }) => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'live', title: '直播' },
@@ -29,10 +37,10 @@ const App = () => {
     return (
         <TabView
             navigationState={{ index, routes }}
-            renderScene={renderScene}
+            renderScene={(props) => renderScene({ ...props, navigation })}  // 传递 navigation 到 renderScene
             onIndexChange={setIndex}
             initialLayout={initialLayout}
-            swipeEnabled={false} //禁用左右滑动
+            swipeEnabled={false} // 禁用左右滑动
             renderTabBar={(props) => (
                 <TabBar
                     {...props}
@@ -53,12 +61,12 @@ const App = () => {
 const styles = StyleSheet.create({
     tabBar: {
         backgroundColor: '#fff', // TabBar 背景颜色
-        height:30
+        height: 30,
     },
     label: {
         color: '#666', // 未选中时的文字颜色
-        fontSize:12,
-        marginTop:-18
+        fontSize: 12,
+        marginTop: -18,
     },
     activeLabel: {
         color: appMainColor, // 选中时的文字颜色
@@ -66,9 +74,9 @@ const styles = StyleSheet.create({
     indicator: {
         backgroundColor: appMainColor, // 下划线颜色
         height: 2, // 下划线高度
-        width:18,
-        marginLeft:28
-    }
+        width: 18,
+        marginLeft: 28,
+    },
 });
 
 export default App;

@@ -1,26 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getRandomAvatar, getRandomCover } from './../../utils/common'; // 引入集中管理的图片对象
 
-interface ApiResponse {
-    code: number;
-    data: {
-        archives: Array<{
-            owner: {
-                name: string;
-                face: string;
-            };
-            stat: {
-                view: number;
-            };
-            pic: string;
-            title: string; // 添加 title 字段
-        }>;
-    } | null;
-}
-
-export const App = () => {
+const CardList = ({ navigation }) => {    
     const [data, setData] = useState<any[]>([]); // 数据类型为 archives 数组
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1); // 页码，初始为 1
@@ -31,7 +13,7 @@ export const App = () => {
         try {
             setLoading(true);
             const response = await fetch(`https://api.bilibili.com/x/web-interface/dynamic/region?rid=31&ps=10&pn=${pageNumber}`);
-            const result: ApiResponse = await response.json();
+            const result = await response.json();
             const list = result?.data?.archives ?? [];
 
             if (list.length > 0) {
@@ -68,32 +50,31 @@ export const App = () => {
 
     // 渲染每一个 item
     const renderItem = ({ item }) => (
-        <View style={styles.card}>
-            {/* 视频缩略图 */}
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation && navigation.navigate('VideoDetail', { video: item })} // 跳转并传递视频详情数据
+        >
             <View style={styles.imageContainer}>
-                <Image source={item.pic ? { uri: item.pic } : getRandomCover()} style={styles.cardImage} />
+                <Image source={{ uri: item.pic }} style={styles.cardImage} />
                 <View style={styles.viewsContainer}>
                     <Ionicons name={'eye-outline'} size={12} color={'#fff'} />
                     <Text style={styles.viewsText}>{item.stat.view}</Text>
                 </View>
-                {/* 用户名在图片右下角 */}
                 <View style={styles.imageUsernameContainer}>
                     <Text style={styles.imageUsername}>{item.owner.name}</Text>
                 </View>
             </View>
-            {/* 下方信息 */}
             <View style={styles.infoContainer}>
                 <View style={styles.textContainer}>
-                    <Image source={item.owner.face ? { uri: item.owner.face } : getRandomAvatar()} style={styles.userImage} />
+                    <Image source={{ uri: item.owner.face }} style={styles.userImage} />
                     <View style={styles.titleContainer}>
                         <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
                         <Text style={styles.username} numberOfLines={1}>{item.owner.name}</Text>
                     </View>
                 </View>
-                {/* 右下角的三个小点 */}
                 <Ionicons style={styles.moreOptions} name={'ellipsis-vertical'} size={12} color={'#464646'} />
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     const renderFooter = () => {
@@ -207,4 +188,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default CardList;
