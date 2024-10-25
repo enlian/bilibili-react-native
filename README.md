@@ -4,7 +4,7 @@ This project is a Bilibili-inspired mobile app interface developed using React N
 
 <img src="assets/img/Screenshot_1727577829.png" width="400"><br><br>
 
-<img src="assets/img/Screenshot_1727535691.png" width="400"><br><br>
+<img src="assets/img/Screenshot_1729839182.png" width="400"><br><br>
 
 <img src="assets/img/Screenshot_1727535659.png" width="400"><br>
 
